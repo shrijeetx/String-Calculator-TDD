@@ -19,4 +19,12 @@ void main() {
     expect(StringCalculator.add('1,2,3,4'), 10);
   });
 
+  test('newlines should be allowed between numbers', () {
+    expect(StringCalculator.add('1\n2,3'), 6);
+  });
+
+  test('custom delimiter', () {
+    expect(StringCalculator.add('//;\n1;3'), 4);
+  });
+
 }

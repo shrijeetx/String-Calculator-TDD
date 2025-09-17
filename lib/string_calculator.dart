@@ -4,13 +4,21 @@ class StringCalculator {
 
     if (numbers.isEmpty) return 0;
 
-    final splittedString = numbers.split(',');
+    String nums = numbers;
+    String delimiter = ',';
 
-    if (splittedString.length == 1) {
-      return int.parse(splittedString.first);
+    // delimiter identification if any
+    if (nums.startsWith('//')) {
+      final idx = nums.indexOf('\n');
+      delimiter = nums.substring(2, idx);
+      nums = nums.substring(idx + 1);
     }
 
-    return splittedString.map(int.parse).reduce((a, b) => a + b);
+    // replace newlines with delimiter
+    nums = nums.replaceAll('\n', delimiter);
+
+    final parts = nums.split(delimiter).where((s) => s.isNotEmpty);
+    return parts.map(int.parse).reduce((a, b) => a + b);
   }
 
 }
