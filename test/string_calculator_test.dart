@@ -27,4 +27,7 @@ void main() {
     expect(StringCalculator.add('//;\n1;3'), 4);
   });
 
+  test('negative numbers throw with message listing them', () {
+    expect(() => StringCalculator.add('1,-2,3,-4'), throwsA(predicate((e) => e is Exception && e.toString().contains('negative numbers not allowed -2,-4'),),),);
+  });
 }

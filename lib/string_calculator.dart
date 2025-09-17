@@ -17,8 +17,22 @@ class StringCalculator {
     // replace newlines with delimiter
     nums = nums.replaceAll('\n', delimiter);
 
-    final parts = nums.split(delimiter).where((s) => s.isNotEmpty);
-    return parts.map(int.parse).reduce((a, b) => a + b);
+    final parts = nums.split(delimiter).where((s) => s.isNotEmpty).toList();
+
+    final negatives = <int>[];
+    var sum = 0;
+
+    for (var p in parts) {
+      final v = int.parse(p);
+      if (v < 0) negatives.add(v);
+      sum += v;
+    }
+
+    if (negatives.isNotEmpty) {
+      throw Exception('negative numbers not allowed ${negatives.join(',')}');
+    }
+
+    return sum;
   }
 
 }
